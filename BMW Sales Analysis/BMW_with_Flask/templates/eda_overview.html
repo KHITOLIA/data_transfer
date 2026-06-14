@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<style>
+body {
+  background-color: #0a0f1c;
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.page-header {
+  background: linear-gradient(135deg, #001f3f, #0b4dbb);
+  padding: 2.5rem;
+  border-radius: 14px;
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.table-section, .graph-section {
+  background-color: #12192b;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+h4 {
+  color: #4fa3ff;
+  margin-bottom: 1rem;
+}
+</style>
+
+<div class="page-header">
+  <h1 class="fw-bold">📊 EDA Overview</h1>
+  <p class="lead">Explore data summary, structure, and missing values for BMW worldwide sales dataset.</p>
+</div>
+
+<div class="container">
+  <div class="table-section">
+    <h4>Dataset Overview</h4>
+    <ul>
+      <li><strong>Total Rows:</strong> {{ total_rows }}</li>
+      <li><strong>Total Columns:</strong> {{ total_cols }}</li>
+      <li><strong>Numerical Features:</strong> {{ ', '.join(numerical) }}</li>
+      <li><strong>Categorical Features:</strong> {{ ', '.join(categorical) }}</li>
+    </ul>
+  </div>
+
+  <div class="table-section">
+    <h4>Top 5 Records</h4>
+    <div class="table-responsive">
+      {{ head_html | safe }}
+    </div>
+  </div>
+
+  <div class="table-section">
+    <h4>Statistical Summary</h4>
+    <div class="table-responsive">
+      {{ describe_html | safe }}
+    </div>
+  </div>
+
+  <div class="graph-section">
+    <h4>Missing Values Heatmap</h4>
+    <img src="data:image/png;base64,{{ heatmap_b64 }}" alt="Missing Values Heatmap">
+  </div>
+
+  <div class="table-section">
+    <h4>Key Insights</h4>
+    <ul>
+      {% for i in overview_insights %}
+      <li>{{ i }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

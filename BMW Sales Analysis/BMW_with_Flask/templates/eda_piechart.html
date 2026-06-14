@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+body {
+  background-color: #0a0f1c;
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.page-header {
+  background: linear-gradient(135deg, #001f3f, #0b4dbb);
+  padding: 2.5rem;
+  border-radius: 14px;
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.graph-card {
+  background-color: #12192b;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+h3 {
+  color: #ffffff;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+table-container {
+  background-color: #12192b;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+}
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+li {
+  margin-bottom: 10px;
+}
+
+</style>
+
+<div class="page-header">
+  <h1 class="fw-bold">🚦 Analytics using Pie Charts</h1>
+  <p class="lead">Pie charts visualizing the distribution in the dataset.</p>
+</div>
+{% for column, img in pie_images.items() %}
+  <div class="graph-card">
+    <h4>{{ column }}</h4>
+    <img src="data:image/png;base64,{{ img }}" alt="Pie Chart - {{ column }}">
+  </div>
+  {% endfor %}
+
+    <div class="table-container">
+    <h4>🧠 Insights</h4>
+    <ul>
+      {% for insight in insights %}
+      <li>{{ insight }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

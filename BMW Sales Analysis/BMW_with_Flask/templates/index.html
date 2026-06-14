@@ -1,0 +1,179 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<style>
+body {
+  background-color: #0a0f1c;
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero {
+  background: linear-gradient(135deg, #001f3f, #0b4dbb);
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+}
+
+.form-section {
+  background-color: #12192b;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #cdd6f4;
+}
+
+.form-control, .form-select {
+  background-color: #1c2539;
+  color: white;
+  border: 1px solid #2d3a5f;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #1c69d4;
+  box-shadow: 0 0 5px #1c69d4;
+  outline: none;
+}
+
+.btn-bmw {
+  background: linear-gradient(90deg, #1c69d4, #003399);
+  color: white;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-bmw:hover {
+  background: linear-gradient(90deg, #003399, #1c69d4);
+  transform: scale(1.05);
+}
+
+.prediction-card {
+  background-color: #0f172a;
+  border-radius: 12px;
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 25px rgba(28, 105, 212, 0.3);
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+
+<div class="hero">
+  <h1 class="display-5 fw-bold">BMW Global Sales Predictor</h1>
+  <p class="lead">Predict BMW’s estimated sales volume using AI — trained on worldwide data (2010–2024).</p>
+</div>
+
+<div class="container">
+  <div class="form-section">
+    <h3 class="mb-4 text-center text-light">🔮 Enter Vehicle Specifications</h3>
+    <form method="POST" action="/">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="model" class="form-label">Model</label>
+          <select class="form-select" name="model" required>
+            <option disabled selected>Select Model</option>
+            <option>3 Series</option>
+            <option>5 Series</option>
+            <option>7 Series</option>
+            <option>X1</option>
+            <option>X3</option>
+            <option>X5</option>
+            <option>X6</option>
+            <option>i3</option>
+            <option>i8</option>
+            <option>M3</option>
+            <option>M5</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="year" class="form-label">Year</label>
+          <input type="number" name="year" id="year" class="form-control" required placeholder="2024">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="region" class="form-label">Region</label>
+          <select name="region" id="region" class="form-select" required>
+            <option value="">Select Region</option>
+            <option value="Europe">Europe</option>
+            <option value="North America">North America</option>
+            <option value="Asia">Asia</option>
+            <option value="South America">South America</option>
+            <option value="Oceania">Oceania</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="color" class="form-label">Color</label>
+          <select name="color" id="color" class="form-select" required>
+            <option value="">Select Color</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Blue">Blue</option>
+            <option value="Red">Red</option>
+            <option value="Silver">Silver</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="fuel_type" class="form-label">Fuel Type</label>
+          <select name="fuel_type" id="fuel_type" class="form-select" required>
+            <option value="">Select Fuel</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Electric">Electric</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="transmission" class="form-label">Transmission</label>
+          <select name="transmission" id="transmission" class="form-select" required>
+            <option value="">Select Transmission</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="engine_size" class="form-label">Engine Size (L)</label>
+          <input type="number" step="0.1" name="engine_size" id="engine_size" class="form-control" required placeholder="e.g. 3.0">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="sales_classification" class="form-label">Sales Classification</label>
+          <select name="sales_classification" id="sales_classification" class="form-select" required>
+            <option value="">Select Classification</option>
+            <option value="High">High</option>
+            <option value="Low">Low</option>
+           
+          </select>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-bmw">🚀 Predict Sales</button>
+      </div>
+    </form>
+  </div>
+
+  {% if predicted_sales %}
+  <div class="prediction-card mt-5">
+    <h4>📈 Predicted Sales Volume</h4>
+    <h2 class="fw-bold text-primary mt-3">{{ predicted_sales }}</h2>
+    <p class="text-muted">Units (Estimated)</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

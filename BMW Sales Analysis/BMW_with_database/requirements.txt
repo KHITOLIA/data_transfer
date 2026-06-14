@@ -1,0 +1,12 @@
+streamlit
+sqlalchemy
+pymysql
+pandas
+numpy
+scikit-learn
+protobuf
+pickle-mixin
+seaborn
+kagglehub
+matplotlib
+python-pptx
