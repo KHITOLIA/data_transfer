@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            margin: 0;
+            padding: 0;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 80px auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        .options label {
+            display: block;
+            background: #f1f1f1;
+            margin-bottom: 15px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .options input[type="radio"] {
+            display: none;
+        }
+
+        .options input[type="radio"]:checked + label {
+            background-color: #a777e3;
+            color: white;
+            border: 2px solid #6e8efb;
+        }
+
+        .options label:hover {
+            background-color: #d0c3ff;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            color: white;
+            background-color: #6e8efb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5c75e0;
+        }
+
+        .clear-btn {
+            background-color: #f44336;
+        }
+
+        .clear-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Question {{ q_num }} of {{ total_q }}</h2>
+        <form method="POST" id="quizForm">
+            <div class="question">{{ question.question }}</div>
+            <div class="options">
+                {% for option in question.options %}
+                    <input type="radio" name="option" id="opt{{ loop.index }}" value="{{ option }}" {% if selected == option %}checked{% endif %}>
+                    <label for="opt{{ loop.index }}">{{ option }}</label>
+                {% endfor %}
+            </div>
+            <div class="buttons">
+                <button type="submit">Submit</button>
+                <button type="button" class="clear-btn" onclick="clearSelection()">Clear Selection</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function clearSelection() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+        }
+    </script>
+</body>
+</html>
